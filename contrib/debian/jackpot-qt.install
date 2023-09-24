@@ -1,0 +1,6 @@
+usr/local/bin/lynthex-qt usr/bin
+share/pixmaps/lynthex32.xpm usr/share/pixmaps
+share/pixmaps/lynthex16.xpm usr/share/pixmaps
+share/pixmaps/lynthex128.png usr/share/pixmaps
+debian/lynthex-qt.desktop usr/share/applications
+debian/lynthex-qt.protocol usr/share/kde4/services/

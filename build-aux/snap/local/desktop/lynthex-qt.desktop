@@ -1,0 +1,15 @@
+# http://standards.freedesktop.org/desktop-entry-spec/desktop-entry-spec-1.0.html
+
+[Desktop Entry]
+Encoding=UTF-8
+Name=LYNTHEX Core
+Comment=LYNTHEX Core QT main network
+GenericName=LYNTHEX Digital Currency QT client main network
+Exec=lynthex-core.qt %u
+Terminal=false
+Type=Application
+Icon=${SNAP}/share/pixmaps/lynthex.png
+MimeType=x-scheme-handler/lynthex;
+Categories=X-Office;X-Finance;
+Keywords=internet;lynthex;zxlyn;xlyn;core;wallet;qt;main;snap;launchpad;crypto;digital;currency;coin;token;zerocoin;
+Version=1.0

@@ -1,0 +1,698 @@
+# Copyright (c) 2013-2016 The Bitcoin Core developers
+# Distributed under the MIT software license, see the accompanying
+# file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
+bin_PROGRAMS += qt/lynthex-qt
+EXTRA_LIBRARIES += qt/libbitcoinqt.a
+
+# lynthex qt core #
+include Makefile.qt_locale.include
+
+QT_FORMS_UI = \
+  qt/forms/addressbookpage.ui \
+  qt/forms/askpassphrasedialog.ui \
+  qt/forms/coincontroldialog.ui \
+  qt/forms/editaddressdialog.ui \
+  qt/forms/helpmessagedialog.ui \
+  qt/forms/intro.ui \
+  qt/forms/openuridialog.ui \
+  qt/forms/optionsdialog.ui \
+  qt/forms/rpcconsole.ui \
+  qt/lynthex/forms/loadingdialog.ui \
+  qt/lynthex/forms/snackbar.ui \
+  qt/lynthex/forms/navmenuwidget.ui \
+  qt/lynthex/forms/lockunlock.ui \
+  qt/lynthex/forms/expandablebutton.ui \
+  qt/lynthex/forms/receivedialog.ui \
+  qt/lynthex/forms/topbar.ui \
+  qt/lynthex/forms/txrow.ui \
+  qt/lynthex/forms/dashboardwidget.ui \
+  qt/lynthex/forms/addresslabelrow.ui \
+  qt/lynthex/forms/contactdropdownrow.ui \
+  qt/lynthex/forms/mninfodialog.ui \
+  qt/lynthex/forms/optionbutton.ui \
+  qt/lynthex/forms/masternodewizarddialog.ui \
+  qt/lynthex/forms/mnrow.ui \
+  qt/lynthex/forms/masternodeswidget.ui \
+  qt/lynthex/forms/myaddressrow.ui \
+  qt/lynthex/forms/sendchangeaddressdialog.ui \
+  qt/lynthex/forms/sendconfirmdialog.ui \
+  qt/lynthex/forms/sendcustomfeedialog.ui \
+  qt/lynthex/forms/sendchangeaddressdialog.ui \
+  qt/lynthex/forms/sendmultirow.ui \
+  qt/lynthex/forms/send.ui \
+  qt/lynthex/forms/addnewaddressdialog.ui \
+  qt/lynthex/forms/addnewcontactdialog.ui \
+  qt/lynthex/forms/requestdialog.ui \
+  qt/lynthex/forms/receivewidget.ui \
+  qt/lynthex/forms/tooltipmenu.ui \
+  qt/lynthex/forms/addresseswidget.ui \
+  qt/lynthex/forms/defaultdialog.ui \
+  qt/lynthex/settings/forms/settingsbackupwallet.ui \
+  qt/lynthex/settings/forms/settingsexportcsv.ui \
+  qt/lynthex/settings/forms/settingsbittoolwidget.ui \
+  qt/lynthex/settings/forms/settingsconsolewidget.ui \
+  qt/lynthex/settings/forms/settingsdisplayoptionswidget.ui \
+  qt/lynthex/settings/forms/settingsfaqwidget.ui \
+  qt/lynthex/settings/forms/settingsinformationwidget.ui \
+  qt/lynthex/settings/forms/settingsmainoptionswidget.ui \
+  qt/lynthex/settings/forms/settingsmultisenddialog.ui \
+  qt/lynthex/settings/forms/settingsmultisendwidget.ui \
+  qt/lynthex/settings/forms/settingssignmessagewidgets.ui \
+  qt/lynthex/settings/forms/settingswalletoptionswidget.ui \
+  qt/lynthex/settings/forms/settingswalletrepairwidget.ui \
+  qt/lynthex/settings/forms/settingswidget.ui \
+  qt/lynthex/forms/welcomecontentwidget.ui \
+  qt/lynthex/forms/splash.ui
+
+QT_MOC_CPP = \
+  qt/moc_addressbookpage.cpp \
+  qt/moc_addresstablemodel.cpp \
+  qt/moc_askpassphrasedialog.cpp \
+  qt/moc_bantablemodel.cpp \
+  qt/moc_bitcoinaddressvalidator.cpp \
+  qt/lynthex/moc_lynthexgui.cpp \
+  qt/moc_bitcoinunits.cpp \
+  qt/moc_clientmodel.cpp \
+  qt/moc_coincontroldialog.cpp \
+  qt/moc_coincontroltreewidget.cpp \
+  qt/moc_csvmodelwriter.cpp \
+  qt/moc_editaddressdialog.cpp \
+  qt/moc_guiutil.cpp \
+  qt/moc_intro.cpp \
+  qt/moc_macdockiconhandler.cpp \
+  qt/moc_macnotificationhandler.cpp \
+  qt/moc_notificator.cpp \
+  qt/moc_openuridialog.cpp \
+  qt/moc_optionsdialog.cpp \
+  qt/moc_optionsmodel.cpp \
+  qt/moc_peertablemodel.cpp \
+  qt/moc_paymentserver.cpp \
+  qt/moc_qvalidatedlineedit.cpp \
+  qt/moc_qvaluecombobox.cpp \
+  qt/moc_recentrequeststablemodel.cpp \
+  qt/moc_rpcconsole.cpp \
+  qt/moc_trafficgraphwidget.cpp \
+  qt/moc_transactionfilterproxy.cpp \
+  qt/moc_transactiontablemodel.cpp \
+  qt/moc_utilitydialog.cpp \
+  qt/moc_walletmodel.cpp \
+  qt/lynthex/moc_loadingdialog.cpp \
+  qt/lynthex/moc_pwidget.cpp \
+  qt/lynthex/moc_focuseddialog.cpp \
+  qt/lynthex/moc_snackbar.cpp \
+  qt/lynthex/moc_navmenuwidget.cpp \
+  qt/lynthex/moc_lockunlock.cpp \
+  qt/lynthex/moc_expandablebutton.cpp \
+  qt/lynthex/moc_furabstractlistitemdelegate.cpp \
+  qt/lynthex/moc_receivedialog.cpp \
+  qt/lynthex/moc_pfborderimage.cpp \
+  qt/lynthex/moc_topbar.cpp \
+  qt/lynthex/moc_txrow.cpp \
+  qt/lynthex/moc_dashboardwidget.cpp \
+  qt/lynthex/moc_addresslabelrow.cpp \
+  qt/lynthex/moc_contactdropdownrow.cpp \
+  qt/lynthex/moc_mninfodialog.cpp \
+  qt/lynthex/moc_optionbutton.cpp \
+  qt/lynthex/moc_mnmodel.cpp \
+  qt/lynthex/moc_masternodewizarddialog.cpp \
+  qt/lynthex/moc_mnrow.cpp \
+  qt/lynthex/moc_masternodeswidget.cpp \
+  qt/lynthex/moc_myaddressrow.cpp \
+  qt/lynthex/moc_contactsdropdown.cpp \
+  qt/lynthex/moc_sendchangeaddressdialog.cpp \
+  qt/lynthex/moc_sendconfirmdialog.cpp \
+  qt/lynthex/moc_sendcustomfeedialog.cpp \
+  qt/lynthex/moc_sendchangeaddressdialog.cpp \
+  qt/lynthex/moc_sendmultirow.cpp \
+  qt/lynthex/moc_send.cpp \
+  qt/lynthex/moc_addnewaddressdialog.cpp \
+  qt/lynthex/moc_addnewcontactdialog.cpp \
+  qt/lynthex/moc_requestdialog.cpp \
+  qt/lynthex/moc_receivewidget.cpp \
+  qt/lynthex/moc_tooltipmenu.cpp \
+  qt/lynthex/moc_addresseswidget.cpp \
+  qt/lynthex/moc_defaultdialog.cpp \
+  qt/lynthex/settings/moc_settingsbackupwallet.cpp \
+  qt/lynthex/settings/moc_settingsexportcsv.cpp \
+  qt/lynthex/settings/moc_settingsbittoolwidget.cpp \
+  qt/lynthex/settings/moc_settingsconsolewidget.cpp \
+  qt/lynthex/settings/moc_settingsdisplayoptionswidget.cpp \
+  qt/lynthex/settings/moc_settingsfaqwidget.cpp \
+  qt/lynthex/settings/moc_settingsinformationwidget.cpp \
+  qt/lynthex/settings/moc_settingsmainoptionswidget.cpp \
+  qt/lynthex/settings/moc_settingsmultisenddialog.cpp \
+  qt/lynthex/settings/moc_settingsmultisendwidget.cpp \
+  qt/lynthex/settings/moc_settingssignmessagewidgets.cpp \
+  qt/lynthex/settings/moc_settingswalletoptionswidget.cpp \
+  qt/lynthex/settings/moc_settingswalletrepairwidget.cpp \
+  qt/lynthex/settings/moc_settingswidget.cpp \
+  qt/lynthex/moc_welcomecontentwidget.cpp \
+  qt/lynthex/moc_splash.cpp
+
+BITCOIN_MM = \
+  qt/macdockiconhandler.mm \
+  qt/macnotificationhandler.mm
+
+QT_MOC = \
+  qt/lynthex.moc \
+  qt/intro.moc \
+  qt/rpcconsole.moc \
+  qt/lynthex/settings/moc_settingsconsolewidget.cpp
+
+QT_QRC_CPP = qt/qrc_lynthex.cpp
+QT_QRC = qt/lynthex.qrc
+QT_QRC_LOCALE_CPP = qt/qrc_lynthex_locale.cpp
+QT_QRC_LOCALE = qt/lynthex_locale.qrc
+
+PROTOBUF_CC = qt/paymentrequest.pb.cc
+PROTOBUF_H = qt/paymentrequest.pb.h
+PROTOBUF_PROTO = qt/paymentrequest.proto
+
+BITCOIN_QT_H = \
+  qt/addressbookpage.h \
+  qt/addresstablemodel.h \
+  qt/askpassphrasedialog.h \
+  qt/bantablemodel.h \
+  qt/bitcoinaddressvalidator.h \
+  qt/lynthex/lynthexgui.h \
+  qt/bitcoinunits.h \
+  qt/clientmodel.h \
+  qt/coincontroldialog.h \
+  qt/coincontroltreewidget.h \
+  qt/csvmodelwriter.h \
+  qt/editaddressdialog.h \
+  qt/guiconstants.h \
+  qt/guiutil.h \
+  qt/intro.h \
+  qt/macdockiconhandler.h \
+  qt/macnotificationhandler.h \
+  qt/networkstyle.h \
+  qt/notificator.h \
+  qt/openuridialog.h \
+  qt/optionsdialog.h \
+  qt/optionsmodel.h \
+  qt/paymentrequestplus.h \
+  qt/paymentserver.h \
+  qt/peertablemodel.h \
+  qt/platformstyle.h \
+  qt/qvalidatedlineedit.h \
+  qt/qvaluecombobox.h \
+  qt/recentrequeststablemodel.h \
+  qt/rpcconsole.h \
+  qt/trafficgraphwidget.h \
+  qt/transactionfilterproxy.h \
+  qt/transactionrecord.h \
+  qt/transactiontablemodel.h \
+  qt/utilitydialog.h \
+  qt/walletmodel.h \
+  qt/walletmodeltransaction.h \
+  qt/lynthex/prunnable.h \
+  qt/lynthex/pfborderimage.h \
+  qt/lynthex/loadingdialog.h \
+  qt/winshutdownmonitor.h \
+  qt/lynthex/pwidget.h \
+  qt/lynthex/focuseddialog.h \
+  qt/lynthex/guitransactionsutils.h \
+  qt/lynthex/snackbar.h \
+  qt/lynthex/navmenuwidget.h \
+  qt/lynthex/lockunlock.h \
+  qt/lynthex/receivedialog.h \
+  qt/lynthex/furlistrow.h \
+  qt/lynthex/furabstractlistitemdelegate.h \
+  qt/lynthex/txviewholder.h \
+  qt/lynthex/qtutils.h \
+  qt/lynthex/expandablebutton.h \
+  qt/lynthex/topbar.h \
+  qt/lynthex/txrow.h \
+  qt/lynthex/addressholder.h \
+  qt/lynthex/addressfilterproxymodel.h \
+  qt/lynthex/dashboardwidget.h \
+  qt/lynthex/addresslabelrow.h \
+  qt/lynthex/contactdropdownrow.h \
+  qt/lynthex/mninfodialog.h \
+  qt/lynthex/optionbutton.h \
+  qt/lynthex/mnmodel.h \
+  qt/lynthex/masternodewizarddialog.h \
+  qt/lynthex/mnrow.h \
+  qt/lynthex/masternodeswidget.h \
+  qt/lynthex/myaddressrow.h \
+  qt/lynthex/contactsdropdown.h \
+  qt/lynthex/sendchangeaddressdialog.h \
+  qt/lynthex/sendconfirmdialog.h \
+  qt/lynthex/sendcustomfeedialog.h \
+  qt/lynthex/sendchangeaddressdialog.h \
+  qt/lynthex/sendmultirow.h \
+  qt/lynthex/send.h \
+  qt/lynthex/addnewaddressdialog.h \
+  qt/lynthex/addnewcontactdialog.h \
+  qt/lynthex/requestdialog.h \
+  qt/lynthex/receivewidget.h \
+  qt/lynthex/tooltipmenu.h \
+  qt/lynthex/addresseswidget.h \
+  qt/lynthex/defaultdialog.h \
+  qt/lynthex/settings/settingsbackupwallet.h \
+  qt/lynthex/settings/settingsexportcsv.h \
+  qt/lynthex/settings/settingsbittoolwidget.h \
+  qt/lynthex/settings/settingsconsolewidget.h \
+  qt/lynthex/settings/settingsdisplayoptionswidget.h \
+  qt/lynthex/settings/settingsfaqwidget.h \
+  qt/lynthex/settings/settingsinformationwidget.h \
+  qt/lynthex/settings/settingsmainoptionswidget.h \
+  qt/lynthex/settings/settingsmultisenddialog.h \
+  qt/lynthex/settings/settingsmultisendwidget.h \
+  qt/lynthex/settings/settingssignmessagewidgets.h \
+  qt/lynthex/settings/settingswalletoptionswidget.h \
+  qt/lynthex/settings/settingswalletrepairwidget.h \
+  qt/lynthex/settings/settingswidget.h \
+  qt/lynthex/welcomecontentwidget.h \
+  qt/lynthex/splash.h
+
+RES_ICONS = \
+  qt/res/icons/bitcoin.ico \
+  qt/res/icons/bitcoin.png \
+  qt/res/icons/bitcoin_testnet.ico \
+  qt/res/icons/bitcoin_testnet.png \
+  qt/res/icons/bitcoin_regtest.png \
+  qt/res/icons/lock_closed.png \
+  qt/res/icons/lock_open.png \
+  qt/res/icons/overview.png \
+  qt/res/icons/ic-transaction-received.svg \
+  qt/res/icons/ic-transaction-mint.svg \
+  qt/res/icons/ic-transaction-sent.svg \
+  qt/res/icons/ic-transaction-staked.svg \
+  qt/lynthex/res/img/bg-dashboard-banner.png \
+  qt/lynthex/res/img/bg-multi-number-dark.svg \
+  qt/lynthex/res/img/ic-check-locked.svg \
+  qt/lynthex/res/img/ic-check-console.svg \
+  qt/lynthex/res/img/ic-nav-address.svg \
+  qt/lynthex/res/img/ic-update.svg \
+  qt/lynthex/res/img/bg-multi-number.svg \
+  qt/lynthex/res/img/ic-check-mint-off.svg \
+  qt/lynthex/res/img/ic-nav-dashboard-active.svg \
+  qt/lynthex/res/img/ic-wallet-status-locked.svg \
+  qt/lynthex/res/img/bg-splash.svg \
+  qt/lynthex/res/img/bg-splash.png \
+  qt/lynthex/res/img/ic-check-mint.svg \
+  qt/lynthex/res/img/ic-nav-dashboard-hover.svg \
+  qt/lynthex/res/img/ic-wallet-status-staking.svg \
+  qt/lynthex/res/img/ic-check-peers-off.svg \
+  qt/lynthex/res/img/ic-nav-dashboard.svg \
+  qt/lynthex/res/img/ic-wallet-status-unlocked.svg \
+  qt/lynthex/res/img/ic-check-peers.svg \
+  qt/lynthex/res/img/ic-nav-master-active.svg \
+  qt/lynthex/res/img/ic-watch-password-white.svg \
+  qt/lynthex/res/img/bg-welcome-container.jpg \
+  qt/lynthex/res/img/bg-welcome-container.png \
+  qt/lynthex/res/img/bg-welcome-container.svg \
+  qt/lynthex/res/img/bg-welcome-container@2x.png \
+  qt/lynthex/res/img/bg-welcome-container@3x.png \
+  qt/lynthex/res/img/ic-check-staking-off.svg \
+  qt/lynthex/res/img/ic-nav-master-hover.svg \
+  qt/lynthex/res/img/ic-watch-password.svg \
+  qt/lynthex/res/img/bg-welcome.jpg \
+  qt/lynthex/res/img/bg-welcome.svg \
+  qt/lynthex/res/img/bg-welcome@2x.jpg \
+  qt/lynthex/res/img/bg-welcome@3x.jpg \
+  qt/lynthex/res/img/bg-welcome.png \
+  qt/lynthex/res/img/ic-check-staking.svg \
+  qt/lynthex/res/img/ic-nav-master.svg \
+  qt/lynthex/res/img/img-dashboard-banner.jpg \
+  qt/lynthex/res/img/btn-radio-active.svg \
+  qt/lynthex/res/img/ic-check-mn-conf.svg \
+  qt/lynthex/res/img/ic-check-coin-conf.svg \
+  qt/lynthex/res/img/ic-check-sync-off.svg \
+  qt/lynthex/res/img/ic-nav-privacy-active.svg \
+  qt/lynthex/res/img/img-empty-contacts.svg \
+  qt/lynthex/res/img/btn-radio-off.svg \
+  qt/lynthex/res/img/ic-check-sync.png \
+  qt/lynthex/res/img/ic-nav-privacy-hover.svg \
+  qt/lynthex/res/img/img-empty-dark-contacts.svg \
+  qt/lynthex/res/img/ic-contact-arrow-down.svg \
+  qt/lynthex/res/img/ic-contact-arrow-down-white.svg \
+  qt/lynthex/res/img/ic-check-sync.svg \
+  qt/lynthex/res/img/ic-check-faq.svg \
+  qt/lynthex/res/img/ic-nav-privacy.svg \
+  qt/lynthex/res/img/img-empty-dark-error.svg \
+  qt/lynthex/res/img/ic-add-label.svg \
+  qt/lynthex/res/img/ic-pending.svg \
+  qt/lynthex/res/img/ic-check-theme-dark.svg \
+  qt/lynthex/res/img/ic-nav-receive-active.svg \
+  qt/lynthex/res/img/img-empty-dark-masternode.svg \
+  qt/lynthex/res/img/ic-add-liliac.svg \
+  qt/lynthex/res/img/ic-check-theme-light.svg \
+  qt/lynthex/res/img/ic-nav-receive-hover.svg \
+  qt/lynthex/res/img/img-empty-dark-multisend.svg \
+  qt/lynthex/res/img/ic-add-purple.svg \
+  qt/lynthex/res/img/ic-check-white.svg \
+  qt/lynthex/res/img/ic-nav-receive.svg \
+  qt/lynthex/res/img/img-empty-dark-peers.svg \
+  qt/lynthex/res/img/ic-add.svg \
+  qt/lynthex/res/img/ic-check.svg \
+  qt/lynthex/res/img/ic-nav-send-active.svg \
+  qt/lynthex/res/img/img-empty-dark-staking-off.svg \
+  qt/lynthex/res/img/img-empty-dark-staking-on.svg \
+  qt/lynthex/res/img/ic-address-book-grey.svg \
+  qt/lynthex/res/img/ic-chevron-left.svg \
+  qt/lynthex/res/img/ic-nav-send-hover.svg \
+  qt/lynthex/res/img/img-empty-dark-transactions.svg \
+  qt/lynthex/res/img/ic-address-book-white.svg \
+  qt/lynthex/res/img/ic-chevron-right.svg \
+  qt/lynthex/res/img/ic-nav-send.svg \
+  qt/lynthex/res/img/img-empty-error.svg \
+  qt/lynthex/res/img/ic-address-book.svg \
+  qt/lynthex/res/img/ic-clear-liliac.svg \
+  qt/lynthex/res/img/ic-nav-settings-active.svg \
+  qt/lynthex/res/img/img-empty-masternode.svg \
+  qt/lynthex/res/img/ic-address-send-white.svg \
+  qt/lynthex/res/img/ic-clear-purple.svg \
+  qt/lynthex/res/img/ic-nav-settings-hover.svg \
+  qt/lynthex/res/img/img-empty-multisend.svg \
+  qt/lynthex/res/img/ic-address-send.svg \
+  qt/lynthex/res/img/ic-close-white.svg \
+  qt/lynthex/res/img/ic-nav-settings.svg \
+  qt/lynthex/res/img/img-empty-peers.svg \
+  qt/lynthex/res/img/img-empty-privacy.svg \
+  qt/lynthex/res/img/img-empty-privacy-dark.svg \
+  qt/lynthex/res/img/ic-arrow-drop-down-white.svg \
+  qt/lynthex/res/img/ic-close.svg \
+  qt/lynthex/res/img/ic-radio-liliac-on.svg \
+  qt/lynthex/res/img/img-empty-staking-off.svg \
+  qt/lynthex/res/img/ic-arrow-drop-down.svg \
+  qt/lynthex/res/img/ic-coin-xlyn.svg \
+  qt/lynthex/res/img/ic-receive-off.svg \
+  qt/lynthex/res/img/img-empty-staking-on.svg \
+  qt/lynthex/res/img/ic-arrow-drop-up-white.svg \
+  qt/lynthex/res/img/ic-coin-zxlyn.png \
+  qt/lynthex/res/img/ic-receive-on.svg \
+  qt/lynthex/res/img/img-empty-transactions.svg \
+  qt/lynthex/res/img/ic-arrow-drop-up.svg \
+  qt/lynthex/res/img/ic-coin-zxlyn.svg \
+  qt/lynthex/res/img/ic-received.svg \
+  qt/lynthex/res/img/img-logo-lynthex.png \
+  qt/lynthex/res/img/ic-arrow-drop-white-down.svg \
+  qt/lynthex/res/img/ic-combo-box.svg \
+  qt/lynthex/res/img/ic-send.svg \
+  qt/lynthex/res/img/img-logo-lynthex@2x.png \
+  qt/lynthex/res/img/ic-arrow-purple-down.svg \
+  qt/lynthex/res/img/ic-connect.svg \
+  qt/lynthex/res/img/ic-submenu-lock.svg \
+  qt/lynthex/res/img/img-logo-lynthex@3x.png \
+  qt/lynthex/res/img/img-logo-lynthex.svg \
+  qt/lynthex/res/img/ic-arrow-right-white.svg \
+  qt/lynthex/res/img/ic-arrow-left-white.svg \
+  qt/lynthex/res/img/ic-arrow-left.svg \
+  qt/lynthex/res/img/ic-copy-liliac.svg \
+  qt/lynthex/res/img/ic-submenu-staking.svg \
+  qt/lynthex/res/img/img-nav-logo-lynthex.png \
+  qt/lynthex/res/img/ic-arrow-right.svg \
+  qt/lynthex/res/img/ic-copy.svg \
+  qt/lynthex/res/img/ic-copy-big.svg \
+  qt/lynthex/res/img/ic-copy-big-white.svg \
+  qt/lynthex/res/img/ic-submenu-unlock.svg \
+  qt/lynthex/res/img/img-nav-logo.png \
+  qt/lynthex/res/img/ic-arrow-white-left.svg \
+  qt/lynthex/res/img/ic-exit.svg \
+  qt/lynthex/res/img/ic-switch-liliac-on.svg \
+  qt/lynthex/res/img/img-nav-logo.svg \
+  qt/lynthex/res/img/ic-arrow-white-right.svg \
+  qt/lynthex/res/img/ic-expand.svg \
+  qt/lynthex/res/img/ic-switch-off.svg \
+  qt/lynthex/res/img/img-qr-test-big.png \
+  qt/lynthex/res/img/ic-check-active.svg \
+  qt/lynthex/res/img/ic-folder.svg \
+  qt/lynthex/res/img/ic-switch-on.svg \
+  qt/lynthex/res/img/img-qr-test.png \
+  qt/lynthex/res/img/ic-check-box.svg \
+  qt/lynthex/res/img/ic-check-box-dark-active.svg \
+  qt/lynthex/res/img/ic-check-box-indeterminate.svg \
+  qt/lynthex/res/img/ic-check-box-liliac-indeterminate.svg \
+  qt/lynthex/res/img/ic-label-liliac.svg \
+  qt/lynthex/res/img/ic-transaction-warning.svg \
+  qt/lynthex/res/img/ic-transaction-mint.svg \
+  qt/lynthex/res/img/ic-transaction-mint-inactive.svg \
+  qt/lynthex/res/img/img-qr.svg \
+  qt/lynthex/res/img/ic-check-connect-off.svg \
+  qt/lynthex/res/img/ic-check-tor-off.svg \
+  qt/lynthex/res/img/ic-check-tor.svg \
+  qt/lynthex/res/img/ic-label.svg \
+  qt/lynthex/res/img/ic-transaction-received.svg \
+  qt/lynthex/res/img/dark/ic-transaction-received.svg \
+  qt/lynthex/res/img/dark/ic-transaction-warning.svg \
+  qt/lynthex/res/img/dark/ic-transaction-mint.svg \
+  qt/lynthex/res/img/dark/ic-transaction-mint-inactive.svg \
+  qt/lynthex/res/img/ic-transaction-received-inactive.svg \
+  qt/lynthex/res/img/dark/ic-transaction-received-inactive.svg \
+  qt/lynthex/res/img/img-welcome-step1.png \
+  qt/lynthex/res/img/ic-check-connect.svg \
+  qt/lynthex/res/img/ic-menu-hover.svg \
+  qt/lynthex/res/img/ic-transaction-sent.svg \
+  qt/lynthex/res/img/ic-transaction-sent-inactive.svg \
+  qt/lynthex/res/img/dark/ic-transaction-sent.svg \
+  qt/lynthex/res/img/dark/ic-transaction-sent-inactive.svg \
+  qt/lynthex/res/img/img-welcome-step2.png \
+  qt/lynthex/res/img/ic-check-dark.svg \
+  qt/lynthex/res/img/ic-mint.svg \
+  qt/lynthex/res/img/ic-transaction-staked.svg \
+  qt/lynthex/res/img/ic-transaction-staked-inactive.svg \
+  qt/lynthex/res/img/dark/ic-transaction-staked.svg \
+  qt/lynthex/res/img/dark/ic-transaction-staked-inactive.svg \
+  qt/lynthex/res/img/img-welcome-step3.png \
+  qt/lynthex/res/img/ic-check-liliac-on.svg \
+  qt/lynthex/res/img/ic-nav-address-active.svg \
+  qt/lynthex/res/img/ic-unlock-staking.svg \
+  qt/lynthex/res/img/img-welcome-step4.png \
+  qt/lynthex/res/img/ic-check-locked-off.svg \
+  qt/lynthex/res/img/ic-nav-address-hover.svg \
+  qt/lynthex/res/img/ic-update-liliac.svg \
+  qt/lynthex/res/img/ic-arrow-drop-down-purple.svg \
+  qt/lynthex/res/img/ic-arrow-drop-up-purple.svg \
+  qt/lynthex/res/img/ic-check-liliac-indeterminate.svg \
+  qt/lynthex/res/img/ic-check-box-liliac-indeterminate.svg \
+  qt/lynthex/res/img/ic-check-box-indeterminate.svg \
+  qt/lynthex/res/img/ani-loading-dark.gif \
+  qt/lynthex/res/img/ani-loading.gif
+
+
+
+BITCOIN_QT_BASE_CPP = \
+  qt/bantablemodel.cpp \
+  qt/bitcoinaddressvalidator.cpp \
+  qt/lynthex/lynthexgui.cpp \
+  qt/bitcoinunits.cpp \
+  qt/clientmodel.cpp \
+  qt/csvmodelwriter.cpp \
+  qt/guiutil.cpp \
+  qt/intro.cpp \
+  qt/networkstyle.cpp \
+  qt/notificator.cpp \
+  qt/optionsdialog.cpp \
+  qt/optionsmodel.cpp \
+  qt/peertablemodel.cpp \
+  qt/platformstyle.cpp \
+  qt/qvalidatedlineedit.cpp \
+  qt/qvaluecombobox.cpp \
+  qt/rpcconsole.cpp \
+  qt/trafficgraphwidget.cpp \
+  qt/utilitydialog.cpp
+
+BITCOIN_QT_WINDOWS_CPP = qt/winshutdownmonitor.cpp
+
+BITCOIN_QT_WALLET_CPP = \
+  qt/addressbookpage.cpp \
+  qt/addresstablemodel.cpp \
+  qt/askpassphrasedialog.cpp \
+  qt/coincontroldialog.cpp \
+  qt/coincontroltreewidget.cpp \
+  qt/editaddressdialog.cpp \
+  qt/openuridialog.cpp \
+  qt/paymentrequestplus.cpp \
+  qt/paymentserver.cpp \
+  qt/recentrequeststablemodel.cpp \
+  qt/transactionfilterproxy.cpp \
+  qt/transactionrecord.cpp \
+  qt/transactiontablemodel.cpp \
+  qt/walletmodel.cpp \
+  qt/walletmodeltransaction.cpp \
+  qt/lynthex/loadingdialog.cpp \
+  qt/lynthex/pwidget.cpp \
+  qt/lynthex/focuseddialog.cpp \
+  qt/lynthex/guitransactionsutils.cpp \
+  qt/lynthex/snackbar.cpp \
+  qt/lynthex/navmenuwidget.cpp \
+  qt/lynthex/lockunlock.cpp \
+  qt/lynthex/receivedialog.cpp \
+  qt/lynthex/furabstractlistitemdelegate.cpp \
+  qt/lynthex/txviewholder.cpp \
+  qt/lynthex/qtutils.cpp \
+  qt/lynthex/expandablebutton.cpp \
+  qt/lynthex/topbar.cpp \
+  qt/lynthex/txrow.cpp \
+  qt/lynthex/addressholder.cpp \
+  qt/lynthex/addressfilterproxymodel.cpp \
+  qt/lynthex/dashboardwidget.cpp \
+  qt/lynthex/addresslabelrow.cpp \
+  qt/lynthex/contactdropdownrow.cpp \
+  qt/lynthex/contactsdropdown.cpp \
+  qt/lynthex/optionbutton.cpp \
+  qt/lynthex/mninfodialog.cpp \
+  qt/lynthex/mnmodel.cpp \
+  qt/lynthex/masternodewizarddialog.cpp \
+  qt/lynthex/mnrow.cpp \
+  qt/lynthex/masternodeswidget.cpp \
+  qt/lynthex/myaddressrow.cpp \
+  qt/lynthex/sendchangeaddressdialog.cpp \
+  qt/lynthex/sendconfirmdialog.cpp \
+  qt/lynthex/sendcustomfeedialog.cpp \
+  qt/lynthex/sendchangeaddressdialog.cpp \
+  qt/lynthex/sendmultirow.cpp \
+  qt/lynthex/send.cpp \
+  qt/lynthex/addnewaddressdialog.cpp \
+  qt/lynthex/addnewcontactdialog.cpp \
+  qt/lynthex/requestdialog.cpp \
+  qt/lynthex/receivewidget.cpp \
+  qt/lynthex/tooltipmenu.cpp \
+  qt/lynthex/addresseswidget.cpp \
+  qt/lynthex/defaultdialog.cpp \
+  qt/lynthex/settings/settingsbackupwallet.cpp \
+  qt/lynthex/settings/settingsexportcsv.cpp \
+  qt/lynthex/settings/settingsbittoolwidget.cpp \
+  qt/lynthex/settings/settingsconsolewidget.cpp \
+  qt/lynthex/settings/settingsdisplayoptionswidget.cpp \
+  qt/lynthex/settings/settingsfaqwidget.cpp \
+  qt/lynthex/settings/settingsinformationwidget.cpp \
+  qt/lynthex/settings/settingsmainoptionswidget.cpp \
+  qt/lynthex/settings/settingsmultisenddialog.cpp \
+  qt/lynthex/settings/settingsmultisendwidget.cpp \
+  qt/lynthex/settings/settingssignmessagewidgets.cpp \
+  qt/lynthex/settings/settingswalletoptionswidget.cpp \
+  qt/lynthex/settings/settingswalletrepairwidget.cpp \
+  qt/lynthex/settings/settingswidget.cpp \
+  qt/lynthex/welcomecontentwidget.cpp \
+  qt/lynthex/splash.cpp
+
+
+BITCOIN_QT_CPP = $(BITCOIN_QT_BASE_CPP)
+if TARGET_WINDOWS
+BITCOIN_QT_CPP += $(BITCOIN_QT_WINDOWS_CPP)
+endif
+if ENABLE_WALLET
+BITCOIN_QT_CPP += $(BITCOIN_QT_WALLET_CPP)
+endif
+
+RES_IMAGES = \
+  qt/res/images/about.png \
+  qt/res/images/splash.png \
+  qt/res/images/splash_testnet.png \
+  qt/res/images/splash_regtest.png
+
+RES_CSS = \
+  qt/res/css/default.css \
+  qt/lynthex/res/css/style_dark.css \
+  qt/lynthex/res/css/style_light.css
+
+BITCOIN_RC = qt/res/lynthex-qt-res.rc
+
+BITCOIN_QT_INCLUDES = -I$(builddir)/qt -I$(srcdir)/qt -I$(srcdir)/qt/forms \
+  -I$(builddir)/qt/forms -DQT_NO_KEYWORDS
+
+qt_libbitcoinqt_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
+  $(QT_INCLUDES) $(QT_DBUS_INCLUDES) $(PROTOBUF_CFLAGS) $(QR_CFLAGS) $(SVG_CFLAGS) $(CHARTS_CFLAGS)
+qt_libbitcoinqt_a_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
+qt_libbitcoinqt_a_OBJCXXFLAGS = $(AM_OBJCXXFLAGS) $(QT_PIE_FLAGS)
+
+qt_libbitcoinqt_a_SOURCES = $(BITCOIN_QT_CPP) $(BITCOIN_QT_H) $(QT_FORMS_UI) \
+  $(QT_QRC) $(QT_QRC_LOCALE) $(QT_TS) $(PROTOBUF_PROTO) $(RES_ICONS) $(RES_IMAGES) $(RES_CSS)
+
+nodist_qt_libbitcoinqt_a_SOURCES = $(QT_MOC_CPP) $(QT_MOC) $(PROTOBUF_CC) \
+  $(PROTOBUF_H) $(QT_QRC_CPP) $(QT_QRC_LOCALE_CPP)
+
+# forms/foo.h -> forms/ui_foo.h
+QT_FORMS_H=$(join $(dir $(QT_FORMS_UI)),$(addprefix ui_, $(notdir $(QT_FORMS_UI:.ui=.h))))
+
+# Most files will depend on the forms and moc files as includes. Generate them
+# before anything else.
+$(QT_MOC): $(QT_FORMS_H)
+$(qt_libbitcoinqt_a_OBJECTS) $(qt_lynthex_qt_OBJECTS) : | $(QT_MOC)
+
+#Generating these with a half-written protobuf header leads to wacky results.
+#This makes sure it's done.
+$(QT_MOC): $(PROTOBUF_H)
+$(QT_MOC_CPP): $(PROTOBUF_H)
+
+# lynthex-qt binary #
+qt_lynthex_qt_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
+  $(QT_INCLUDES) $(PROTOBUF_CFLAGS) $(QR_CFLAGS) $(SVG_CFLAGS) $(CHARTS_CFLAGS)
+qt_lynthex_qt_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
+
+qt_lynthex_qt_SOURCES = qt/lynthex.cpp
+if TARGET_DARWIN
+  qt_lynthex_qt_SOURCES += $(BITCOIN_MM)
+endif
+if TARGET_WINDOWS
+  qt_lynthex_qt_SOURCES += $(BITCOIN_RC)
+endif
+qt_lynthex_qt_LDADD = qt/libbitcoinqt.a $(LIBBITCOIN_SERVER)
+if ENABLE_WALLET
+qt_lynthex_qt_LDADD += $(LIBBITCOIN_UTIL) $(LIBBITCOIN_WALLET)
+endif
+if ENABLE_ZMQ
+qt_lynthex_qt_LDADD += $(LIBBITCOIN_ZMQ) $(ZMQ_LIBS)
+endif
+qt_lynthex_qt_LDADD += $(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) $(LIBBITCOIN_UTIL) $(LIBBITCOIN_CRYPTO) $(LIBUNIVALUE) $(LIBBITCOIN_ZEROCOIN) $(LIBZCASH_LIBS) $(LIBLEVELDB) $(LIBLEVELDB_SSE42) $(LIBMEMENV) \
+  $(BOOST_LIBS) $(QT_LIBS) $(QT_DBUS_LIBS) $(QR_LIBS) $(PROTOBUF_LIBS) $(SVG_LIBS) $(CHARTS_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(LIBSECP256K1) \
+  $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
+qt_lynthex_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+qt_lynthex_qt_LIBTOOLFLAGS = $(AM_LIBTOOLFLAGS) --tag CXX
+
+#locale/foo.ts -> locale/foo.qm
+QT_QM=$(QT_TS:.ts=.qm)
+
+SECONDARY: $(QT_QM)
+
+$(srcdir)/qt/lynthexstrings.cpp: $(libbitcoin_server_a_SOURCES) $(libbitcoin_wallet_a_SOURCES) $(libbitcoin_common_a_SOURCES) $(libbitcoin_zmq_a_SOURCES) $(libbitcoin_util_a_SOURCES)
+	@test -n $(XGETTEXT) || echo "xgettext is required for updating translations"
+	$(AM_V_GEN) cd $(srcdir); XGETTEXT=$(XGETTEXT) PACKAGE_NAME="$(PACKAGE_NAME)" $(PYTHON) ../share/qt/extract_strings_qt.py $^
+
+translate: $(srcdir)/qt/lynthexstrings.cpp $(QT_FORMS_UI) $(QT_FORMS_UI) $(BITCOIN_QT_BASE_CPP) qt/lynthex.cpp $(BITCOIN_QT_WINDOWS_CPP) $(BITCOIN_QT_WALLET_CPP) $(BITCOIN_QT_H) $(BITCOIN_MM)
+	@test -n $(LUPDATE) || echo "lupdate is required for updating translations"
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LUPDATE) $^ -locations relative -no-obsolete -ts $(srcdir)/qt/locale/lynthex_en.ts
+
+$(QT_QRC_LOCALE_CPP): $(QT_QRC_LOCALE) $(QT_QM)
+	@test -f $(RCC)
+	@cp -f $< $(@D)/temp_$(<F)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name lynthex_locale $(@D)/temp_$(<F) | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+	@rm $(@D)/temp_$(<F)
+
+$(QT_QRC_CPP): $(QT_QRC) $(QT_FORMS_H) $(RES_ICONS) $(RES_IMAGES) $(RES_CSS) $(PROTOBUF_H)
+	@test -f $(RCC)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name lynthex $< | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+
+CLEAN_QT = $(nodist_qt_libbitcoinqt_a_SOURCES) $(QT_QM) $(QT_FORMS_H) qt/*.gcda qt/*.gcno qt/temp_lynthex_locale.qrc
+
+CLEANFILES += $(CLEAN_QT)
+
+lynthex_qt_clean: FORCE
+	rm -f $(CLEAN_QT) $(qt_libbitcoinqt_a_OBJECTS) $(qt_lynthex_qt_OBJECTS) qt/lynthex-qt$(EXEEXT) $(LIBBITCOINQT)
+
+lynthex_qt : qt/lynthex-qt$(EXEEXT)
+
+ui_%.h: %.ui
+	@test -f $(UIC)
+	@$(MKDIR_P) $(@D)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(UIC) -o $@ $< || (echo "Error creating $@"; false)
+
+%.moc: %.cpp
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(MOC) $(DEFAULT_INCLUDES) $(QT_INCLUDES) $(MOC_DEFS) $< | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+
+moc_%.cpp: %.h
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(MOC) $(DEFAULT_INCLUDES) $(QT_INCLUDES) $(MOC_DEFS) $< | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+
+%.qm: %.ts
+	@test -f $(LRELEASE)
+	@$(MKDIR_P) $(@D)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LRELEASE) -silent $< -qm $@

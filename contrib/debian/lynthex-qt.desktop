@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Name=LYNTHEX
+Comment= XLYN P2P Cryptocurrency
+Comment[fr]= XLYN, monnaie virtuelle cryptographique pair à pair
+Comment[tr]= XLYN, eşten eşe kriptografik sanal para birimi
+Exec=lynthex-qt %u
+Terminal=false
+Type=Application
+Icon=lynthex128
+MimeType=x-scheme-handler/lynthex;
+Categories=Office;Finance;
+StartupWMClass=LYNTHEX-qt

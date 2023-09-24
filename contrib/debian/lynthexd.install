@@ -1,0 +1,3 @@
+usr/local/bin/lynthexd usr/bin
+usr/local/bin/lynthex-cli usr/bin
+debian/examples/lynthex.conf etc/lynthex

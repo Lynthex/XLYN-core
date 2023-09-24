@@ -1,0 +1,81 @@
+policy_module(lynthex, 1.100.1)
+
+########################################
+#
+# Declarations
+#
+
+type lynthex_t;
+type lynthex_exec_t;
+init_daemon_domain(lynthex_t, lynthex_exec_t)
+
+permissive lynthex_t;
+
+type lynthex_initrc_exec_t;
+init_script_file(lynthex_initrc_exec_t)
+
+type lynthex_conf_t;
+files_type(lynthex_conf_t)
+
+type lynthex_var_lib_t;
+files_type(lynthex_var_lib_t)
+
+type lynthex_var_run_t;
+files_type(lynthex_var_run_t)
+
+type lynthex_port_t;
+corenet_port(lynthex_port_t)
+
+########################################
+#
+# lynthex local policy
+#
+allow lynthex_t self:process { fork };
+
+allow lynthex_t self:fifo_file rw_fifo_file_perms;
+allow lynthex_t self:unix_stream_socket create_stream_socket_perms;
+
+manage_dirs_pattern(lynthex_t, lynthex_conf_t, lynthex_conf_t)
+manage_files_pattern(lynthex_t, lynthex_conf_t, lynthex_conf_t)
+
+manage_dirs_pattern(lynthex_t, lynthex_var_lib_t, lynthex_var_lib_t)
+manage_files_pattern(lynthex_t, lynthex_var_lib_t, lynthex_var_lib_t)
+files_var_lib_filetrans(lynthex_t, lynthex_var_lib_t, { dir file })
+
+manage_dirs_pattern(lynthex_t, lynthex_var_run_t, lynthex_var_run_t)
+manage_files_pattern(lynthex_t, lynthex_var_run_t, lynthex_var_run_t)
+
+sysnet_dns_name_resolve(lynthex_t)
+corenet_all_recvfrom_unlabeled(lynthex_t)
+
+allow lynthex_t self:tcp_socket create_stream_socket_perms;
+corenet_tcp_sendrecv_generic_if(lynthex_t)
+corenet_tcp_sendrecv_generic_node(lynthex_t)
+corenet_tcp_sendrecv_all_ports(lynthex_t)
+corenet_tcp_bind_generic_node(lynthex_t)
+
+gen_require(`
+    type lynthex_port_t;
+')
+allow lynthex_t lynthex_port_t:tcp_socket name_bind;
+
+gen_require(`
+    type lynthex_port_t;
+')
+allow lynthex_t lynthex_port_t:tcp_socket name_connect;
+
+domain_use_interactive_fds(lynthex_t)
+
+files_read_etc_files(lynthex_t)
+
+miscfiles_read_localization(lynthex_t)
+
+sysnet_dns_name_resolve(lynthex_t)
+
+allow lynthex_t lynthex_exec_t:file execute_no_trans;
+allow lynthex_t self:process setsched;
+corecmd_exec_ls(lynthex_t)
+corenet_tcp_connect_http_port(lynthex_t)
+dev_read_urand(lynthex_t)
+fs_getattr_xattr_fs(lynthex_t)
+kernel_read_system_state(lynthex_t)
