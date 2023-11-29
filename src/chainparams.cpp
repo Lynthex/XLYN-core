@@ -70,12 +70,13 @@ static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits
  */
 static Checkpoints::MapCheckpoints mapCheckpoints =
     boost::assign::map_list_of
-    (0, uint256S("0x000005e086ffc43f0f194545f3cbaeeaf887f4f3cf9772abac5984d4629adbea")); 
+	(0, uint256S("0x000005e086ffc43f0f194545f3cbaeeaf887f4f3cf9772abac5984d4629adbea"))
+    (88450, uint256S("0x7e543c7146c20cdb9f7fa36026290121e484c3b6bd473feabf6e5bcb7cafc7c0")); 
 
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
-    1695499021, // * UNIX timestamp of last checkpoint block
-    0,          // * total number of transactions between genesis and last checkpoint
+    1701225555, // * UNIX timestamp of last checkpoint block
+    179800,          // * total number of transactions between genesis and last checkpoint
                 //   (the tx=... number in the UpdateTip debug.log lines)
     2824        // * estimated number of transactions per day after checkpoint
 };
@@ -133,10 +134,10 @@ public:
         consensus.nTimeSlotLength = 15;
 
         // spork keys
-        consensus.strSporkPubKey = "0416642bba5d0805eafe37c0630dc2ceca9794fd05e02991fa2315626606ff8bd10748d20a982d0ba2e8baa87905bf1d1aac9882f3b5d037828d7779a2a67a6e16";
-        consensus.strSporkPubKeyOld = "";
-        consensus.nTime_EnforceNewSporkKey = 0;
-        consensus.nTime_RejectOldSporkKey = 0;
+        consensus.strSporkPubKey = "04bd2ee3496cac258681a6c9b328e36774ad9003bac815f156f56173af53e45b127f5c40b1f785296fb6a2eca0df76b9a95d2da27fa786a986fd10d298dc69e2c1";
+        consensus.strSporkPubKeyOld = "0416642bba5d0805eafe37c0630dc2ceca9794fd05e02991fa2315626606ff8bd10748d20a982d0ba2e8baa87905bf1d1aac9882f3b5d037828d7779a2a67a6e16";
+        consensus.nTime_EnforceNewSporkKey = 1701273601;
+        consensus.nTime_RejectOldSporkKey = 1701273600;
 
         // dev address
         consensus.devAddress = "LXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
